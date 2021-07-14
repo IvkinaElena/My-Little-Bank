@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MyBank</title>
+    <link th:href="@{myStyle.css}" rel="stylesheet" />
+</head>
+<body>
+  <div th:switch="${customers}">
+    <h2 th:case="null">No users yet!</h2>
+    <div th:case="*">
+      <h2>Customers</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Middle Name</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="customer : ${customers}">
+          <td th:text="${customer.lastname}"></td>
+          <td th:text="${customer.firstname}"></td>
+          <td th:text="${customer.middlename}"></td>
+          <td><a th:href="@{/customer/{id}(id=${customer.idCustomer})}">View</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <p><a href="/signup">Add a new customer</a></p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer</title>
+    <link th:href="@{/myStyle.css}" rel="stylesheet" />
+</head>
+<body>
+<h1 th:text="${customer.lastname} + ' ' + ${customer.firstname} + ' ' + ${customer.middlename}"></h1>
+<div th:switch="${#lists.size(accounts)}">
+    <h2 th:case="'0'">No account yet!</h2>
+    <div th:case="*">
+        <table>
+          <thead>
+            <tr>
+                <th>Account number</th>
+                <th>Balance</th>
+                <th></th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr th:each="account : ${accounts}">
+                <td th:text="${account.number}"></td>
+                <td th:text="${account.balance}"></td>
+                  <td><a th:href="@{/transaction/{id}(id=${account.idAccount})}">View</a></td>
+              </tr>
+          </tbody>
+        </table>
+    </div>
+    <p><a th:href="@{/newaccount/{id}(id=${customer.idCustomer})}">Add a new account</a></p>
+</div>
+</body>
+</html>

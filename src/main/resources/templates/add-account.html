@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Account</title>
+</head>
+<body>
+<h1 th:text="'Add account from customer ' + ${customer.lastname} + ' ' + ${customer.firstname} + ' ' + ${customer.middlename}"></h1>
+<form action="#" th:action="@{/addaccount/__${customer.idCustomer}__}" th:object="${account}" method="post">
+  <label for="number">Number</label>
+  <input type="text" th:field="*{number}" id="number" placeholder="Number">
+  <span th:if="${#fields.hasErrors('number')}" th:errors="*{number}"></span>
+  <label for="balance">Balance</label>
+  <input type="text" th:field="*{balance}" id="balance" placeholder="Balance">
+  <span th:if="${#fields.hasErrors('balance')}" th:errors="*{balance}"></span>
+  <input type="hidden"  th:value="${customer.idCustomer}" id="idOwner" name="idOwner">
+  <input type="submit" value="Add Account">
+</form>
+</body>
+</html>
