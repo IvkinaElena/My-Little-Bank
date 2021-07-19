@@ -23,7 +23,7 @@ public class Customer {
 
     private String middlename;
 
-    @OneToMany(mappedBy="mCustomer")
+    @OneToMany(mappedBy = "mCustomer")
     private Set<Account> accounts;
 
 }

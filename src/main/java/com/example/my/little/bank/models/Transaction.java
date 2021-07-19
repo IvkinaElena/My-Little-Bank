@@ -15,7 +15,7 @@ import java.time.Instant;
 @Table(name = "transactions")
 public class Transaction {
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long idTransacrion;
 
@@ -28,7 +28,7 @@ public class Transaction {
 
     /** many transaction have a single account **/
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name="idScore",referencedColumnName="id",insertable=false, updatable=false)
+    @JoinColumn(name = "idScore", referencedColumnName = "id", insertable = false, updatable = false)
     private Account mAccount;
 
 }

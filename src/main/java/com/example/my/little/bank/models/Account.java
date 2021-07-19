@@ -13,7 +13,7 @@ import java.util.Set;
 @Table(name="accounts")
 public class Account {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long idAccount;
 
@@ -23,11 +23,11 @@ public class Account {
 
     private Integer balance;
 
-    @OneToMany(mappedBy="mAccount")
+    @OneToMany(mappedBy = "mAccount")
     private Set<Transaction> transactions;
 
     /** many accounts have a single customer **/
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn (name="idOwner",referencedColumnName="id", insertable=false, updatable=false)
+    @JoinColumn(name = "idOwner", referencedColumnName = "id", insertable = false, updatable = false)
     private Customer mCustomer;
 }

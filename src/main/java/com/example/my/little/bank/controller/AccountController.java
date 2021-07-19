@@ -32,7 +32,7 @@ public class AccountController {
     }
 
     @PostMapping("/addaccount/{id}")
-    public String addAccount(@Valid Account account, BindingResult result, Model model) {
+    public String addAccount(@Valid Account account, BindingResult result,  Model model) {
         if (result.hasErrors()) {
             return "add-account";
         }
