@@ -1,5 +1,7 @@
 package com.example.my.little.bank.controller;
 
+import com.example.my.little.bank.dto.AccountDto;
+import com.example.my.little.bank.dto.AccountMapper;
 import com.example.my.little.bank.models.Account;
 import com.example.my.little.bank.services.AccountService;
 import com.example.my.little.bank.services.CustomerService;
@@ -11,33 +13,34 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
 
 @Controller
 public class AccountController {
     private final CustomerService customerService;
     private final AccountService accountService;
-
+    private AccountMapper accountMapper;
 
     @Autowired
-    public AccountController(AccountService accountService, CustomerService customerService){
+        public AccountController(AccountService accountService, CustomerService customerService, AccountMapper accountMapper){
         this.accountService = accountService;
         this.customerService = customerService;
+        this.accountMapper = accountMapper;
     }
 
-    @GetMapping("/newaccount/{id}")
-    public String showAddAccountForm(@PathVariable("id") Long id, Model model, Account account) {
-        model.addAttribute("customer", this.customerService.findById(id));
+    @GetMapping("/customer/{id_customer}/accounts")
+    public String showAddAccountForm(@PathVariable("id_customer") Long id_customer, Model model, AccountDto accountDto) {
+        model.addAttribute("customer", this.customerService.findById(id_customer));
         return "add-account";
     }
 
-    @PostMapping("/addaccount/{id}")
-    public String addAccount(@Valid Account account, BindingResult result,  Model model) {
+    @PostMapping("/customer/{id_customer}/new_account")
+    public String addAccount(@PathVariable("id_customer") Long id_customer,  Model model, AccountDto accountDto, BindingResult result) {
         if (result.hasErrors()) {
             return "add-account";
         }
 
+        Account account = AccountMapper.INSTANCE.accountDtoToAccount(accountDto);
         this.accountService.create(account);
-        return "redirect:/index";
+        return "redirect:/customer/{id_customer}";
     }
 }

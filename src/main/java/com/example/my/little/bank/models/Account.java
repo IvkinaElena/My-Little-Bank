@@ -2,6 +2,7 @@ package com.example.my.little.bank.models;
 
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
@@ -17,17 +18,16 @@ public class Account {
     @Column(name = "id")
     private Long idAccount;
 
-    private String number;
+    @NotNull
+    private Long number;
 
-    private Long idOwner;
+    private Integer balance = 0;
 
-    private Integer balance;
-
-    @OneToMany(mappedBy = "mAccount")
+    @OneToMany(mappedBy = "account")
     private Set<Transaction> transactions;
 
     /** many accounts have a single customer **/
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idOwner", referencedColumnName = "id", insertable = false, updatable = false)
-    private Customer mCustomer;
+    @JoinColumn(name = "id_owner", referencedColumnName = "id")
+    private Customer customer;
 }

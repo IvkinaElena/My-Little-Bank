@@ -38,6 +38,6 @@ public class TransactionService {
     @Transactional
     public List<Transaction> findByIdScore(Long idScore) {
         return transactionRepository
-                .findByIdScore(idScore);
+                .findByAccountIdAccount(idScore);
     }
 }

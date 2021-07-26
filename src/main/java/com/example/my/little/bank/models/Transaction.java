@@ -19,8 +19,6 @@ public class Transaction {
     @Column(name = "id")
     private Long idTransacrion;
 
-    private Long idScore;
-
     @CreationTimestamp
     private Instant createdAt;
 
@@ -28,7 +26,7 @@ public class Transaction {
 
     /** many transaction have a single account **/
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "idScore", referencedColumnName = "id", insertable = false, updatable = false)
-    private Account mAccount;
+    @JoinColumn(name = "id_score", referencedColumnName = "id")
+    private Account account;
 
 }

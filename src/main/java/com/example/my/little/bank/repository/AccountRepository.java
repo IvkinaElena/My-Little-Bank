@@ -2,9 +2,11 @@ package com.example.my.little.bank.repository;
 
 import com.example.my.little.bank.models.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
-    List<Account> findByIdOwner(Long idOwner);
+    List<Account> findByCustomerIdCustomer(Long idOwner);
 }

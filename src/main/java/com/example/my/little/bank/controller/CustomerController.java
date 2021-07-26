@@ -1,5 +1,7 @@
 package com.example.my.little.bank.controller;
 
+import com.example.my.little.bank.dto.CustomerDto;
+import com.example.my.little.bank.dto.CustomerMapper;
 import com.example.my.little.bank.models.Customer;
 import com.example.my.little.bank.services.AccountService;
 import com.example.my.little.bank.services.CustomerService;
@@ -12,16 +14,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class CustomerController {
     private final CustomerService customerService;
     private final AccountService accountService;
+    private final CustomerMapper customerMapper;
 
     @Autowired
-    public CustomerController(CustomerService customerService,AccountService accountService ){
+    public CustomerController(CustomerService customerService,AccountService accountService, CustomerMapper customerMapper){
         this.customerService = customerService;
         this.accountService = accountService;
+        this.customerMapper = customerMapper;
     }
 
     @GetMapping("/signup")
@@ -41,7 +47,12 @@ public class CustomerController {
 
     @GetMapping("/index")
     public String showUserList(Model model) {
-        model.addAttribute("customers", this.customerService.findAll());
+        List<CustomerDto> listCustomerDto = new ArrayList();
+        for(Customer customer : this.customerService.findAll()) {
+            CustomerDto customerDto = customerMapper.customerToCustomerDto(customer);
+            listCustomerDto.add(customerDto);
+        }
+        model.addAttribute("customers", listCustomerDto);
         return "index";
     }
 

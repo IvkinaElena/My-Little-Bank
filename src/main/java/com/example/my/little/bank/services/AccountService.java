@@ -33,7 +33,7 @@ public class AccountService {
     @Transactional
     public List<Account> findByIdOwner(Long idOwner) {
         return accountRepository
-                .findByIdOwner(idOwner);
+                .findByCustomerIdCustomer(idOwner);
     }
 
     @Transactional
