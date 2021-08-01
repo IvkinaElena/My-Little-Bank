@@ -1,5 +1,6 @@
 package com.example.my.little.bank.controller;
 
+import com.example.my.little.bank.MyException.NotFoundException;
 import com.example.my.little.bank.services.AccountService;
 import com.example.my.little.bank.services.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class TransactionController {
     }
 
     @GetMapping("/transaction/{id}")
-    public String showTransaction(@PathVariable("id") Long id, Model model) {
+    public String showTransaction(@PathVariable("id") Long id, Model model) throws NotFoundException {
         model.addAttribute("transactions", this.transactionService.findByIdScore(id));
         model.addAttribute("account", this.accountService.findById(id));
         return "transaction";

@@ -1,5 +1,6 @@
 package com.example.my.little.bank.services;
 
+import com.example.my.little.bank.MyException.NotFoundException;
 import com.example.my.little.bank.models.Customer;
 import com.example.my.little.bank.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +25,15 @@ public class CustomerService {
     }
 
     @Transactional
-    public Customer findById(Long id) {
+    public Customer findById(Long id) throws NotFoundException {
         return customerRepository
                 .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Unknown user id: " + id));
+                .orElseThrow(() -> new NotFoundException(id));
     }
 
     @Transactional
     public List<Customer> findAll() {
         return customerRepository.findAll();
     }
-
-
 
 }

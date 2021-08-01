@@ -1,13 +1,13 @@
 package com.example.my.little.bank.services;
 
+import com.example.my.little.bank.MyException.NotFoundException;
 import com.example.my.little.bank.models.Account;
 import com.example.my.little.bank.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class AccountService {
@@ -24,10 +24,10 @@ public class AccountService {
     }
 
     @Transactional
-    public Account findById(Long id) {
+    public Account findById(Long id) throws NotFoundException {
         return accountRepository
                 .findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Unknown account id: " + id));
+                .orElseThrow(() -> new NotFoundException(id));
     }
 
     @Transactional

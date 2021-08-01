@@ -1,5 +1,6 @@
 package com.example.my.little.bank.controller;
 
+import com.example.my.little.bank.MyException.NotFoundException;
 import com.example.my.little.bank.dto.CustomerDto;
 import com.example.my.little.bank.dto.CustomerMapper;
 import com.example.my.little.bank.models.Customer;
@@ -57,7 +58,7 @@ public class CustomerController {
     }
 
     @GetMapping("/customer/{id}")
-    public String getCustomer(@PathVariable("id") Long id, Model model) {
+    public String getCustomer(@PathVariable("id") Long id, Model model) throws NotFoundException {
         model.addAttribute("customer", this.customerService.findById(id));
         model.addAttribute("accounts", this.accountService.findByIdOwner(id));
         return "customer";

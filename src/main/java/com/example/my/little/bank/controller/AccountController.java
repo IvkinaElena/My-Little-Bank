@@ -1,5 +1,6 @@
 package com.example.my.little.bank.controller;
 
+import com.example.my.little.bank.MyException.NotFoundException;
 import com.example.my.little.bank.dto.AccountDto;
 import com.example.my.little.bank.dto.AccountMapper;
 import com.example.my.little.bank.models.Account;
@@ -28,7 +29,7 @@ public class AccountController {
     }
 
     @GetMapping("/customer/{id_customer}/accounts")
-    public String showAddAccountForm(@PathVariable("id_customer") Long id_customer, Model model, AccountDto accountDto) {
+    public String showAddAccountForm(@PathVariable("id_customer") Long id_customer, Model model, AccountDto accountDto) throws NotFoundException {
         model.addAttribute("customer", this.customerService.findById(id_customer));
         return "add-account";
     }
