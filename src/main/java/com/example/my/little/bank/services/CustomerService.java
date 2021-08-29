@@ -1,6 +1,6 @@
 package com.example.my.little.bank.services;
 
-import com.example.my.little.bank.MyException.NotFoundException;
+import com.example.my.little.bank.exception.NotFoundException;
 import com.example.my.little.bank.models.Customer;
 import com.example.my.little.bank.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
